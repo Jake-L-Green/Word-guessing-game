@@ -1,0 +1,50 @@
+import time
+import random
+
+def main():
+    word = getting_word()
+    introduction()
+    guessing(word)
+    ending()
+
+
+def getting_word():
+    f = open("Word text file//Filtered words", "r")
+    list = f.read().split()
+    f.close()
+    word = (random.choice(list))
+    return word
+
+def introduction():
+    print("This is my word guessing game")
+    time.sleep(3)
+    print("Im thinking of a word please attempt to guess it\nYou can type letters to find more of the word")
+    time.sleep(4)
+
+def guessing(word):
+    player_guesses, player_guess, failures = str(""), str(""), 0
+    while player_guess != word:
+        player_guesses += player_guess
+        if player_guess not in word and player_guess != word:
+            failures += 1
+        if failures == 10:
+            time.sleep(2)
+            print(f"The word i was looking for was {word} unfortunately you guessed incorrectly\nPlease try again")
+            quit()
+        for letter in word:
+            if player_guess == "break":
+                quit()
+            if letter in player_guesses:
+                print(letter)
+            if letter not in player_guesses:
+                print("_")
+        print(f"You have {(10 - failures)} incorrect inputs remaining")
+        
+        player_guess = str(input("Please take a guess "))
+        
+def ending():
+    print("You guessed the word correctly!\nThanks for playing!")       
+        
+        
+                
+main()
